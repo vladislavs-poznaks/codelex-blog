@@ -6,3 +6,5 @@
         <b><?php echo $article->createdAt(); ?></b>
     </small>
 </p>
+
+<a href="/articles/<?php echo $article->id(); ?>/edit">Edit Article</a>
