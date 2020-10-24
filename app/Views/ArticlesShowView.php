@@ -1,4 +1,8 @@
-<h1>Article: <?php echo $id; ?></h1>
-
-<h3><?php echo $article->title(); ?></h3>
+<a href="/">Back</a>
+<h1><?php echo $article->title(); ?></h1>
 <p><?php echo $article->content(); ?></p>
+<p>
+    <small>
+        <b><?php echo $article->createdAt(); ?></b>
+    </small>
+</p>
