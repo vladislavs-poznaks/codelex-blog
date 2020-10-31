@@ -3,11 +3,10 @@
 namespace App\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
 
 class ArticlesController
 {
-    private array $articles;
-
     public function index()
     {
         $articlesQuery = query()
@@ -48,6 +47,33 @@ class ArticlesController
             $articleQuery['content'],
             $articleQuery['created_at'],
         );
+
+        $comments = $article->comments();
+
+        $tagsQuery = query()
+            ->select('*')
+            ->from('tags')
+            ->where('id IN (SELECT tag_id FROM article_tag WHERE article_id = :articleId)')
+            ->setParameter('articleId', $article->id())
+            ->execute()
+            ->fetchAllAssociative();
+
+        $tags = [];
+
+        foreach ($tagsQuery as $tagQuery) {
+
+            $tags[] = new Tag(
+                (int) $tagQuery['id'],
+                $tagQuery['name'],
+                $tagQuery['created_at'],
+            );
+        }
+
+        $tagNames = [];
+
+        foreach ($tags as $tag) {
+            $tagNames[] = '#' . $tag->name();
+        }
 
         return require_once __DIR__  . '/../Views/ArticlesShowView.php';
     }

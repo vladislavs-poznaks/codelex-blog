@@ -1,3 +1,5 @@
+<?php require_once __DIR__  . '/../Views/HeaderView.php' ?>
+
 <h1>Articles</h1>
 
 <?php foreach ($articles as $article): ?>
@@ -13,3 +15,5 @@
         </small>
     </p>
 <?php endforeach; ?>
+
+<?php require_once __DIR__  . '/../Views/FooterView.php' ?>

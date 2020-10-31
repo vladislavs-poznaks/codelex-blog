@@ -2,23 +2,24 @@
 
 namespace App\Models;
 
-use App\Models\CommentsCollection;
-
-class Article
+class Comment
 {
     private int $id;
-    private string $title;
+    private int $articleId;
+    private string $name;
     private string $content;
-    private string $createdAt;
+    private string $created_at;
 
     public function __construct(
         int $id,
-        string $title,
+        int $articleId,
+        string $name,
         string $content,
         string $createdAt
     ) {
         $this->id = $id;
-        $this->title = $title;
+        $this->articleId = $articleId;
+        $this->name = $name;
         $this->content = $content;
         $this->createdAt = $createdAt;
     }
@@ -28,9 +29,14 @@ class Article
         return $this->id;
     }
 
-    public function title(): string
+    public function articleId(): int
     {
-        return $this->title;
+        return $this->articleId;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 
     public function content(): string
@@ -41,10 +47,5 @@ class Article
     public function createdAt(): string
     {
         return $this->createdAt;
-    }
-
-    public function comments(): CommentsCollection
-    {
-        return new CommentsCollection($this->id);
     }
 }
